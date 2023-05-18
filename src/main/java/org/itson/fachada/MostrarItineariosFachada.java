@@ -25,25 +25,56 @@ import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 
 /**
+ * Fachada que sirve para mostrar un itinerario
  *
- * @author JORGE
+ * @author kim, marki, elmer, yorx
  */
-public class MostrarItineariosFachada implements IMostrarItinerarios{
-MostrarItinerario visor= new MostrarItinerario();
-    
+public class MostrarItineariosFachada implements IMostrarItinerarios {
+
+    /**
+     * Obj de clase para poder crear el documento
+     */
+    MostrarItinerario visor = new MostrarItinerario();
+
+    /**
+     * Metodo para generar un reporte de un itinerario
+     *
+     * @param itinerario itinerario a reportar
+     */
     @Override
     public void reporteItinerario(Itinerario itinerario) {
         visor.reporteItinerario(itinerario);
     }
-    
+
+    /**
+     * Clase protegida que implementa el metodo para reportar el itinerario
+     */
     protected class MostrarItinerario implements JRDataSource {
 
+        /**
+         * String[] con la info de el itinerario
+         */
         private String[] infoItinerario;
+        /**
+         * Lista con el itinerario
+         */
         private List<Itinerario> listaItinerario;
+        /**
+         * Index para el JasperReports
+         */
         private int index;
 
-        public MostrarItinerario(){};
-        
+        /**
+         * Constructor por defecto
+         */
+        public MostrarItinerario() {
+        }
+
+        ;
+        /**
+         * Reporte de itinerario metodo que sirvepara generar el reporte de un itinerario
+         * @param itinerario itinerario a reportar
+         */
         public void reporteItinerario(Itinerario itinerario) {
             List<Itinerario> reporte = new ArrayList<Itinerario>();
             reporte.add(itinerario);
@@ -58,6 +89,12 @@ MostrarItinerario visor= new MostrarItinerario();
                 ex.getMessage();
             }
         }
+
+        /**
+         * Metodo que revisa que dias se realiza el itinerario
+         *
+         * @return un String formateado con la lista de los dias del itinerario
+         */
         public String listaDias() {
             String dias = "";
             if (listaItinerario.get(0).getDias().contains(LUNES)) {
@@ -84,6 +121,10 @@ MostrarItinerario visor= new MostrarItinerario();
             return dias;
         }
 
+        /**
+         * Metodo que revisa los animales que se ven en un itinerario y los junta en un string
+         * @return String con los animales a ver
+         */
         public String Animales() {
             String animales = "";
             for (int i = 0; i < this.listaItinerario.get(0).getEspecies().size(); i++) {
@@ -92,6 +133,10 @@ MostrarItinerario visor= new MostrarItinerario();
             return animales;
         }
 
+        /**
+         * Metodo que mappea las columnas del reporte con la info del itinerario9
+         * @param listaItinerario Lista que contiene el itinerario
+         */
         public MostrarItinerario(List<Itinerario> listaItinerario) {
             this.listaItinerario = listaItinerario;
             this.infoItinerario = new String[7];
@@ -107,12 +152,23 @@ MostrarItinerario visor= new MostrarItinerario();
             }
         }
 
+        /**
+         * metodo next de jasperreports
+         * @return Si se puede seguir o no
+         * @throws JRException Excepcion a tirar
+         */
         @Override
         public boolean next() throws JRException {
             index++;
             return (index < this.infoItinerario.length);
         }
 
+        /**
+         * Metodo que regresa el valor de un campo de jasperreports
+         * @param jrf JRField a mandar
+         * @return el valor del campo
+         * @throws JRException Excepcion a tirar
+         */
         @Override
         public Object getFieldValue(JRField jrf) throws JRException {
             Object value = null;
@@ -144,10 +200,14 @@ MostrarItinerario visor= new MostrarItinerario();
             return value;
         }
 
+        /**
+         * Metodo que regresa la fuenta de los datos del objeto
+         * @return JRDataSource de la clase
+         */
         public JRDataSource getDataSource() {
             return new MostrarItinerario(this.listaItinerario);
         }
 
     }
-    
+
 }

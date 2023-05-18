@@ -7,10 +7,14 @@ package org.itson.fachada;
 import ObjNegocio.Itinerario;
 
 /**
- *
- * @author JORGE
+ * Interfaz para generar un reporte de itinerario
+ * @author @author kim, marki, elmer, yorx
  */
 public interface IMostrarItinerarios {
     
+    /**
+     * Metodo que genera un reporte de itinerario de a cuerdo al itinerario que se le envia
+     * @param itinerario Itinerario a generar un reporte
+     */
     public void reporteItinerario(Itinerario itinerario);
 }
