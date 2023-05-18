@@ -4,10 +4,19 @@
  */
 package org.itson.fachada;
 
+import ObjNegocio.Itinerario;
+import vistaItinerario.VisorItinerario;
+
 /**
  *
  * @author JORGE
  */
-public class MostrarItineariosFachada {
+public class MostrarItineariosFachada implements IMostrarItinerarios{
+VisorItinerario visor;
+    
+    @Override
+    public void reporteItinerario(Itinerario itinerario) {
+        visor.reporteItinerario(itinerario);
+    }
     
 }

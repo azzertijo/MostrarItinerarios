@@ -4,10 +4,13 @@
  */
 package org.itson.fachada;
 
+import ObjNegocio.Itinerario;
+
 /**
  *
  * @author JORGE
  */
 public interface IMostrarItinerarios {
     
+    public void reporteItinerario(Itinerario itinerario);
 }
